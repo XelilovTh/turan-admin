@@ -1,0 +1,315 @@
+/*
+ * ============================================================
+ * TURAN LEATHER — animations.css
+ * All keyframes, entrance animations, and motion utilities
+ * Respects prefers-reduced-motion
+ * ============================================================
+ */
+
+/* ── Keyframes ── */
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(201, 168, 76, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(201, 168, 76, 0.12);
+  }
+}
+
+@keyframes goldShine {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes lineGrow {
+  from { width: 0; }
+  to   { width: 60px; }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes panelSlideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes navbarReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Animation Utility Classes ── */
+
+.anim-fade-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.anim-fade-left {
+  animation: fadeInLeft 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.anim-fade-right {
+  animation: fadeInRight 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.anim-scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* Stagger delays */
+.anim-delay-1 { animation-delay: 60ms; }
+.anim-delay-2 { animation-delay: 120ms; }
+.anim-delay-3 { animation-delay: 180ms; }
+.anim-delay-4 { animation-delay: 240ms; }
+.anim-delay-5 { animation-delay: 300ms; }
+.anim-delay-6 { animation-delay: 360ms; }
+
+/* ── Scroll-triggered Entrance ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition:
+    opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(28px);
+  transition:
+    opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger for grid items */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0ms; }
+.reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 60ms; }
+.reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 120ms; }
+.reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 180ms; }
+.reveal-stagger.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 240ms; }
+.reveal-stagger.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 300ms; }
+.reveal-stagger.visible > *:nth-child(n+7) { opacity: 1; transform: none; transition-delay: 360ms; }
+
+/* ── Hero Entrance Animations ── */
+.hero-content .hero-eyebrow {
+  animation: fadeInLeft 0.6s 0.1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.hero-content .hero-title {
+  animation: fadeInUp 0.7s 0.2s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.hero-content .hero-desc {
+  animation: fadeInUp 0.6s 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.hero-content .hero-actions {
+  animation: fadeInUp 0.6s 0.45s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.hero-content .hero-stats {
+  animation: fadeInUp 0.6s 0.55s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.hero-image-frame {
+  animation: fadeInRight 0.8s 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Navbar ── */
+#navbar {
+  animation: navbarReveal 0.5s 0.05s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Gold Line Animation ── */
+.gold-line {
+  animation: lineGrow 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Gold Shine on Hover ── */
+.btn-gold {
+  background-size: 200% auto;
+  transition: background-position 0.4s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.btn-gold:hover {
+  background-position: right center;
+}
+
+/* ── Float Animation for decorative elements ── */
+.float {
+  animation: floatY 4s ease-in-out infinite;
+}
+
+/* ── Gold Pulse for CTA ── */
+.pulse-gold {
+  animation: goldPulse 2.5s ease-in-out infinite;
+}
+
+/* ── Card entrance when filter changes ── */
+.product-card {
+  animation: cardEntrance 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Toast notification ── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
+  border-radius: 3px;
+  padding: 0.85rem 1.75rem;
+  color: var(--cream);
+  font-size: 0.85rem;
+  font-weight: 500;
+  z-index: 500;
+  animation: toastSlideIn 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+}

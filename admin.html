@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Panel — Turan Leather</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="stylesheet" href="admin.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0A0A'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-size='14' fill='%23C9A84C'>ADM</text></svg>" />
+</head>
+<body class="admin-body">
+
+  <!-- ══════════════════════════════════════
+       LOGIN SCREEN
+  ══════════════════════════════════════ -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-card anim-scale-in">
+      <div class="login-logo">
+        <span class="login-logo-text">Turan <em>Leather</em></span>
+        <span class="login-logo-sub">Admin Panel</span>
+      </div>
+
+      <span class="gold-line gold-line--center"></span>
+
+      <form class="login-form" id="loginForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="loginUser">İstifadəçi Adı</label>
+          <input
+            type="text"
+            id="loginUser"
+            class="form-input"
+            placeholder="admin"
+            autocomplete="username"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPass">Şifrə</label>
+          <div class="input-password-wrap">
+            <input
+              type="password"
+              id="loginPass"
+              class="form-input"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="toggle-pass" id="togglePass" aria-label="Şifrəni göstər">
+              <svg class="eye-icon eye-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-icon eye-hide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="login-error" id="loginError"></div>
+
+        <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center; margin-top:0.5rem;">
+          Daxil Ol
+        </button>
+      </form>
+
+      <p class="login-hint">
+        Default: <code>admin</code> / <code>turan2024</code>
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       ADMIN DASHBOARD (login sonrası)
+  ══════════════════════════════════════ -->
+  <div class="admin-layout" id="adminLayout" style="display:none">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-logo">
+        <span>Turan <em>Leather</em></span>
+        <span class="sidebar-logo-sub">Admin</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="sidebar-nav-item active" data-view="products">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="3" width="7" height="7"/><rect x="15" y="3" width="7" height="7"/>
+            <rect x="15" y="14" width="7" height="7"/><rect x="2" y="14" width="7" height="7"/>
+          </svg>
+          Məhsullar
+        </button>
+        <button class="sidebar-nav-item" data-view="settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          Parametrlər
+        </button>
+      </nav>
+
+      <button class="sidebar-logout" id="logoutBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>
+        </svg>
+        Çıxış
+      </button>
+    </aside>
+
+    <!-- Mobile sidebar toggle -->
+    <button class="admin-menu-toggle" id="adminMenuToggle" aria-label="Menyu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+
+      <!-- ── Products View ── -->
+      <div class="admin-view" id="viewProducts">
+
+        <!-- Header -->
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">Məhsullar</h1>
+            <p class="admin-page-subtitle" id="productCount">Yüklənir...</p>
+          </div>
+          <button class="btn btn-gold" id="addProductBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Yeni Məhsul
+          </button>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="admin-stats" id="adminStats">
+          <div class="admin-stat-card">
+            <div class="admin-stat-num" id="statTotal">0</div>
+            <div class="admin-stat-label">Ümumi</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-num" id="statCuzdan">0</div>
+            <div class="admin-stat-label">Cüzdan</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-num" id="statKemer">0</div>
+            <div class="admin-stat-label">Kəmər</div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-num" id="statAksesuar">0</div>
+            <div class="admin-stat-label">Aksesuar</div>
+          </div>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="admin-toolbar">
+          <div class="admin-search-wrap">
+            <svg class="admin-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input
+              type="search"
+              class="form-input admin-search"
+              id="adminSearch"
+              placeholder="Məhsul axtar..."
+            />
+          </div>
+          <select class="form-input admin-filter-select" id="adminFilterCat">
+            <option value="all">Bütün kateqoriyalar</option>
+            <option value="cuzdan">Cüzdan</option>
+            <option value="kemer">Kəmər</option>
+            <option value="aksesuar">Aksesuar</option>
+          </select>
+        </div>
+
+        <!-- Products Table -->
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="adminTable">
+            <thead>
+              <tr>
+                <th>Şəkil</th>
+                <th>Ad</th>
+                <th>Kateqoriya</th>
+                <th>Qiymət</th>
+                <th>Şəkil Prefiksi</th>
+                <th>Şəkil Sayı</th>
+                <th>Əməliyyatlar</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody">
+              <!-- JS tərəfindən doldurulur -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- ── Settings View ── -->
+      <div class="admin-view" id="viewSettings" style="display:none">
+        <div class="admin-page-header">
+          <div>
+            <h1 class="admin-page-title">Parametrlər</h1>
+            <p class="admin-page-subtitle">GitHub repo və WhatsApp konfiqurasiyası</p>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3 class="settings-section-title">GitHub Konfiqurasiyası</h3>
+          <p class="settings-desc">
+            Şəkillər GitHub reposundakı <code>images/</code> qovluğundan avtomatik yüklənir.
+            Formatı: <code>{prefix}_{n}.jpg</code>
+          </p>
+          <div class="settings-grid">
+            <div class="form-group">
+              <label class="form-label">GitHub İstifadəçi Adı</label>
+              <input type="text" class="form-input" id="settingOwner" placeholder="your-username" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Repo Adı</label>
+              <input type="text" class="form-input" id="settingRepo" placeholder="turan-leather-imgs" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Branch</label>
+              <input type="text" class="form-input" id="settingBranch" placeholder="main" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp Nömrəsi</label>
+              <input type="text" class="form-input" id="settingWhatsapp" placeholder="994XXXXXXXXX" />
+            </div>
+          </div>
+          <button class="btn btn-gold" id="saveSettingsBtn" style="margin-top:1.5rem;">
+            Yadda Saxla
+          </button>
+        </div>
+
+        <div class="settings-card" style="margin-top:1.5rem;">
+          <h3 class="settings-section-title">Şifrə Dəyiş</h3>
+          <div class="settings-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="form-group">
+              <label class="form-label">Yeni Şifrə</label>
+              <input type="password" class="form-input" id="newPassword" placeholder="••••••••" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Şifrəni Təsdiqlə</label>
+              <input type="password" class="form-input" id="confirmPassword" placeholder="••••••••" />
+            </div>
+          </div>
+          <button class="btn btn-outline" id="changePasswordBtn" style="margin-top:1.5rem;">
+            Şifrəni Yenilə
+          </button>
+        </div>
+
+        <div class="settings-card danger-zone" style="margin-top:1.5rem;">
+          <h3 class="settings-section-title" style="color: #ff6b6b;">Təhlükəli Zona</h3>
+          <p class="settings-desc">Bütün məhsulları silmək geri qaytarıla bilməz.</p>
+          <button class="btn" id="clearAllBtn" style="background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.4); color: #ff6b6b; margin-top:1rem;">
+            Bütün Məhsulları Sil
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PRODUCT FORM MODAL (Add / Edit)
+  ══════════════════════════════════════ -->
+  <div class="admin-modal-overlay" id="productFormOverlay">
+    <div class="admin-modal" id="productFormModal">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title" id="formModalTitle">Yeni Məhsul</h2>
+        <button class="modal-close" id="formModalClose">✕</button>
+      </div>
+
+      <form class="product-form" id="productForm" novalidate>
+        <!-- Hidden ID for edit mode -->
+        <input type="hidden" id="productId" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="productName">
+              Məhsul Adı <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="productName"
+              class="form-input"
+              placeholder="Klassik Bifold Cüzdan"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="productPrice">
+              Qiymət (AZN) <span class="required">*</span>
+            </label>
+            <input
+              type="number"
+              id="productPrice"
+              class="form-input"
+              placeholder="120"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="productCategory">
+              Kateqoriya <span class="required">*</span>
+            </label>
+            <select id="productCategory" class="form-input form-select" required>
+              <option value="">Seçin...</option>
+              <option value="cuzdan">Cüzdan</option>
+              <option value="kemer">Kəmər</option>
+              <option value="aksesuar">Aksesuar</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="productImageCount">
+              Şəkil Sayı <span class="required">*</span>
+            </label>
+            <input
+              type="number"
+              id="productImageCount"
+              class="form-input"
+              placeholder="3"
+              min="1"
+              max="20"
+              value="1"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="productImagePrefix">
+            Şəkil Prefiksi <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="productImagePrefix"
+            class="form-input"
+            placeholder="wallet_classic"
+          />
+          <div class="form-hint" id="imagePrefixHint">
+            GitHub URL nümunəsi görünəcək...
+          </div>
+        </div>
+
+        <!-- GitHub URL Preview -->
+        <div class="github-preview" id="githubPreview">
+          <div class="github-preview-label">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            GitHub şəkil URL-ləri:
+          </div>
+          <div class="github-preview-urls" id="githubPreviewUrls"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="productDesc">Məhsul Təsviri</label>
+          <textarea
+            id="productDesc"
+            class="form-input form-textarea"
+            placeholder="Məhsul haqqında ətraflı məlumat..."
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-error" id="formError"></div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="formCancelBtn">Ləğv Et</button>
+          <button type="submit" class="btn btn-gold" id="formSubmitBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Yadda Saxla
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div class="admin-modal-overlay" id="deleteConfirmOverlay">
+    <div class="admin-modal admin-modal--sm">
+      <div class="admin-modal-header">
+        <h2 class="admin-modal-title">Məhsulu Sil</h2>
+        <button class="modal-close" id="deleteModalClose">✕</button>
+      </div>
+      <p style="color: var(--cream-muted); margin-bottom: 1.5rem; font-size: 0.9rem; line-height: 1.6;">
+        <strong id="deleteProductName" style="color: var(--cream);"></strong> məhsulunu silmək istədiyinizə əminsiniz?
+        Bu əməliyyat geri qaytarıla bilməz.
+      </p>
+      <div class="form-actions">
+        <button class="btn btn-ghost" id="deleteCancelBtn">Ləğv Et</button>
+        <button class="btn" id="deleteConfirmBtn" style="background: rgba(255,107,107,0.15); border: 1px solid rgba(255,107,107,0.4); color: #ff6b6b;">
+          Sil
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="admin-toast" id="adminToast"></div>
+
+  <!-- Admin JS -->
+  <script src="admin.js"></script>
+</body>
+</html>
